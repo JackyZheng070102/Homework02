@@ -20,15 +20,40 @@ class CalculatorHome extends StatefulWidget {
 
 class _CalculatorHomeState extends State<CalculatorHome> {
   String _output = "0";  // Initial output
+  double _num1 = 0;      // First number
+  String _operator = "";  // Operator
 
   void _buttonPressed(String buttonText) {
     if (buttonText == "C") {
       _output = "0";  // Clear button
+      _num1 = 0;      // Reset first number
+      _operator = "";  // Reset operator
+    } else if (buttonText == "+" || buttonText == "-" || buttonText == "*" || buttonText == "/") {
+      _num1 = double.parse(_output);  // Store the first number
+      _operator = buttonText;          // Set the operator
+      _output = "0";                   // Reset output for next number
+    } else if (buttonText == "=") {
+      double _num2 = double.parse(_output);  // Get the second number
+      switch (_operator) {
+        case "+":
+          _output = (_num1 + _num2).toString();  // Perform addition
+          break;
+        case "-":
+          _output = (_num1 - _num2).toString();  // Perform subtraction
+          break;
+        case "*":
+          _output = (_num1 * _num2).toString();  // Perform multiplication
+          break;
+        case "/":
+          _output = _num2 == 0 ? "Error" : (_num1 / _num2).toString();  // Perform division
+          break;
+      }
+      _operator = "";  // Reset operator
     } else {
       if (_output == "0") {
-        _output = buttonText; // Replace initial zero
+        _output = buttonText;  // Replace initial zero
       } else {
-        _output += buttonText; // Append to existing output
+        _output += buttonText;  // Append to existing output
       }
     }
 
