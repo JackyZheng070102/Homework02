@@ -49,6 +49,11 @@ class _CalculatorHomeState extends State<CalculatorHome> {
           break;
       }
       _operator = "";  // Reset operator
+    } else if (buttonText == ".") {
+      // Allow only one decimal point
+      if (!_output.contains(".")) {
+        _output += ".";
+      }
     } else {
       if (_output == "0") {
         _output = buttonText;  // Replace initial zero
